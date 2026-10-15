@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080914">
+  <title>Nimma Visuals | Kannada AI Web Series</title>
+  <meta name="description" content="Watch Kannada AI web series, explore episodes and discover cinematic stories.">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #080914;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 5%;
+      background: #10111f;
+      border-bottom: 1px solid #292a3d;
+    }
+
+    .logo {
+      color: #ffca28;
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .hero {
+      padding: 55px 6% 45px;
+      background: linear-gradient(135deg, #202047, #080914 75%);
+    }
+
+    .hero h1 {
+      font-size: clamp(32px, 7vw, 54px);
+      margin: 10px 0;
+    }
+
+    .hero p {
+      color: #c8c8d8;
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    .tag {
+      color: #ffca28;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    main { padding: 28px 5%; }
+
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+
+    .series-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 16px;
+    }
+
+    .series-card {
+      overflow: hidden;
+      background: #151626;
+      border: 1px solid #292a40;
+      border-radius: 12px;
+    }
+
+    .poster {
+      min-height: 185px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 15px;
+      background: linear-gradient(145deg, #292956, #151626);
+      color: #ffca28;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .poster small {
+      color: #ddd;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .card-info { padding: 14px; }
+
+    .card-info h3 { margin: 0 0 8px; }
+
+    .card-info p {
+      font-size: 13px;
+      color: #c0c0ce;
+      line-height: 1.5;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      border-radius: 7px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .primary {
+      background: #ffca28;
+      color: #141414;
+      width: 100%;
+    }
+
+    .secondary {
+      background: #292a40;
+      color: white;
+      margin-top: 8px;
+      width: 100%;
+    }
+
+    .details {
+      margin-top: 28px;
+      padding: 20px;
+      border-radius: 12px;
+      background: #151626;
+      border: 1px solid #292a40;
+    }
+
+    .details[hidden] { display: none; }
+
+    .episode {
+      display: block;
+      width: 100%;
+      margin: 9px 0;
+      text-align: left;
+      color: white;
+      background: #24253a;
+    }
+
+    video {
+      width: 100%;
+      margin-top: 12px;
+      background: #000;
+      border-radius: 8px;
+    }
+
+    .note {
+      color: #bdbdcb;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 35px;
+      background: #10111f;
+      color: #bdbdcb;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">NIMMA VISUALS</div>
+    <span>ಕನ್ನಡ AI ಕಥೆಗಳು</span>
+  </header>
+
+  <section class="hero">
+    <div class="tag">YOUR STORY. YOUR WORLD.</div>
+    <h1>Stories Beyond<br>Imagination.</h1>
+    <p>
+      Discover cinematic Kannada AI web series, emotional stories,
+      friendship, motivation and unforgettable adventures.
+    </p>
+    <button class="primary" style="width:auto"
+      onclick="document.getElementById('series').scrollIntoView({behavior:'smooth'})">
+      Explore Series ↓
+    </button>
+  </section>
+
+  <main id="series">
+    <h2 class="section-title">🎬 Our Web Series</h2>
+
+    <div class="series-grid" id="seriesGrid"></div>
+
+    <section class="details" id="seriesDetails" hidden>
+      <h2 id="seriesTitle"></h2>
+      <p id="seriesDescription"></p>
+      <p id="episodeCount"></p>
+      <h3>Episodes</h3>
+      <div id="episodeList"></div>
+      <video id="videoPlayer" controls playsinline hidden></video>
+      <p class="note" id="videoNote">
+        Episodes have not been uploaded yet.
+      </p>
+      <button class="secondary" onclick="closeSeries()">Close Series</button>
+    </section>
+
+    <p class="note">
+      This is the initial website version. Series posters and videos
+      are placeholders until you add your own content.
+    </p>
+  </main>
+
+  <footer>
+    © 2026 Nimma Visuals · Kannada AI Web Series
+  </footer>
+
+  <script>
+    const seriesData = [
+      {
+        id: 1,
+        title: "My First AI Series",
+        description: "Add your story description here. Tell viewers about the characters, friendship, struggles and exciting twists.",
+        episodes: 20,
+        videoUrls: {}
+      },
+      {
+        id: 2,
+        title: "Coming Soon",
+        description: "Your next Kannada AI web series will appear here.",
+        episodes: 0,
+        videoUrls: {}
+      }
+    ];
+
+    const grid = document.getElementById("seriesGrid");
+
+    seriesData.forEach(series => {
+      const card = document.createElement("article");
+      card.className = "series-card";
+
+      const poster = document.createElement("div");
+      poster.className = "poster";
+      poster.textContent = "NIMMA VISUALS";
+
+      const small = document.createElement("small");
+      small.textContent = "THUMBNAIL COMING SOON";
+      poster.appendChild(small);
+
+      const info = document.createElement("div");
+      info.className = "card-info";
+
+      const title = document.createElement("h3");
+      title.textContent = series.title;
+
+      const description = document.createElement("p");
+      description.textContent = series.description;
+
+      const count = document.createElement("p");
+      count.textContent = series.episodes + " episodes";
+
+      const button = document.createElement("button");
+      button.className = "primary";
+      button.textContent = "View Series";
+      button.addEventListener("click", () => openSeries(series.id));
+
+      info.append(title, description, count, button);
+      card.append(poster, info);
+      grid.appendChild(card);
+    });
+
+    function openSeries(id) {
+      const series = seriesData.find(item => item.id === id);
+      const details = document.getElementById("seriesDetails");
+
+      document.getElementById("seriesTitle").textContent = series.title;
+      document.getElementById("seriesDescription").textContent = series.description;
+      document.getElementById("episodeCount").textContent =
+        "Total episodes: " + series.episodes;
+
+      const list = document.getElementById("episodeList");
+      list.replaceChildren();
+
+      const player = document.getElementById("videoPlayer");
+      player.pause();
+      player.removeAttribute("src");
+      player.hidden = true;
+      player.load();
+
+      const note = document.getElementById("videoNote");
+
+      if (series.episodes === 0) {
+        note.textContent = "Episodes will be added soon.";
+      } else {
+        note.textContent = "Demo version: upload and connect your videos to play episodes.";
+
+        for (let i = 1; i <= series.episodes; i++) {
+          const episode = document.createElement("button");
+          episode.className = "episode";
+          episode.textContent = "▶ Episode " + i;
+
+          episode.addEventListener("click", () => {
+            const url = series.videoUrls[i];
+
+            if (url) {
+              player.src = url;
+              player.hidden = false;
+              note.textContent = "Playing Episode " + i;
+              player.play().catch(() => {
+                note.textContent = "Tap Play on the video player to start.";
+              });
+            } else {
+              note.textContent = "Episode " + i +
+                " video has not been connected yet.";
+              player.hidden = true;
+            }
+          });
+
+          list.appendChild(episode);
+        }
+      }
+
+      details.hidden = false;
+      details.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function closeSeries() {
+      const player = document.getElementById("videoPlayer");
+      player.pause();
+      player.removeAttribute("src");
+      player.load();
+      document.getElementById("seriesDetails").hidden = true;
+    }
+  </script>
+</body>
+</html>
